@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript" src="js.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css.css" rel="stylesheet">
+    <title>Tic Tac Toe</title>
+</head>
+<body>
+    <div id="win"></div>
+    <section id="board"></section>
+</body>
+  
+  
+  
+  
+  
+<style>
+  #board {
+    width: 500px;
+    height: 500px;
+    border: 1px solid black;
+  }
+  
+  #board > div {
+    width: 20px;
+    height: 20px;
+    border: 1px solid red;
+  }
+
+</style>
+  
+  
+  
+  
+  
+<script>
+    
+/* Game Board */
+class GameBoard {
+  constructor(player1, player2) {
+    this.player1 = player1;
+    this.player2 = player2;
+    this.playersTurn = player2;
+    this.winner = null,
+    this.board = [
+      null, null, null,
+      null, null, null,
+      null, null, null
+    ];
+
+    this.constructBoard(); 
+    this.startGame();
+  }
+  
+  
+  startGame() {
+    while (!this.isWinner() || !this.isTie()) {
+      
+      this.playersTurn.play(this.board);
+      this.switchPlayersTurn();      
+      
+    }
+  }
+  
+  isTie() {
+   return this.board.some((item) => item === null)  
+  }
+  
+  isWinner() {
+    var didOWin = this.checkWinner('O');
+    var didXWin = this.checkWinner('X');
+    
+    if didowin || didxwin etc etc etc
+    // switch (this.board) {
+    //   case 
+    // }
+    return false;
+    
+    
+    //return true or false
+  
+  }
+  
+  switchPlayersTurn() {
+    if (this.playersTurn === player1) {
+      this.playersTurn = player2
+    } else {
+      this.playersTurn = player1
+    }
+  }
+  
+  constructBoard() {
+    this.board.forEach((space, index) => {
+      var div = document.createElement('div');
+      div.addEventListener("click", () => this.playersTurn.play(this.board))
+      document.getElementById('board').appendChild(div);
+    })
+  }
+}
+  
+
+/* Human */
+class Human {
+  constructor(name, letter) {
+    this.name = name;
+    this.type = 'Human';
+    this.score = 0;
+    this.letter = letter;
+
+  }
+  
+  play(board) {
+    
+  }
+}
+  
+  
+/* Computer */
+class Computer {
+  constructor(name, letter) {
+    this.name = name;
+    this.type = 'Computer';
+    this.score = 0;
+    this.letter = letter;
+  }
+
+  
+  play(board) {
+    var emptyBoxes = {};
+        
+    board.forEach(function(space, index) {
+      if (space === null) {
+        emptyBoxes[index+1] = null;
+      }
+    })
+
+    var keys = Object.keys(emptyBoxes); 
+    // pcik number between 0 and keys.length randomly
+    // [1,3,5,6]
+    var randNumber = Math.floor(Math.random() * keys.length);
+    var space = keys[randNumber];
+    
+    board[space] = this.letter;
+    
+    console.log(board);
+  
+    
+    //var pick = Math.floor(Math.random() * keys.length);
+  }
+}
+  
+
+let Aidan = new Human('Aidan', 'X');
+let Joe = new Computer('Joe', 'O');
+let game = new GameBoard(Aidan, Joe);
+  
+
+</script>
+</html>
